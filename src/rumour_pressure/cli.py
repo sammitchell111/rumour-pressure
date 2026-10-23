@@ -3,6 +3,7 @@
 import contextlib
 import logging
 from datetime import UTC, datetime
+from pathlib import Path
 from typing import Annotated
 
 import typer
@@ -82,20 +83,26 @@ def registry_add(
     entity_key: Annotated[
         list[str] | None, typer.Option("--entity-key", "-k", help="Repeatable.")
     ] = None,
+    detrend: Annotated[str, typer.Option(help="hazard | none")] = "none",
+    file: Annotated[
+        Path, typer.Option("--file", help="Registry file (e.g. registry/candidates.yaml).")
+    ] = Path("registry/markets.yaml"),
 ) -> None:
     """Fetch full market details (incl. resolution text) and record them in the registry."""
     from rumour_pressure.registry import load_registry, save_registry
     from rumour_pressure.registry import venues as v
 
-    reg = load_registry()
+    reg = load_registry(file)
     keys = entity_key or ["Taylor Swift", "Travis Kelce"]
     for ref in refs:
-        market = v.FETCH[venue](ref, group).model_copy(update={"entity_keys": keys})
+        market = v.FETCH[venue](ref, group).model_copy(
+            update={"entity_keys": keys, "detrend": detrend}
+        )
         if not market.resolution_text:
             typer.echo(f"warning: {market.market_id} has no resolution text", err=True)
         reg = reg.upsert(market)
         typer.echo(f"added {market.market_id}: {market.question[:70]}")
-    save_registry(reg)
+    save_registry(reg, file)
 
 
 @registry_app.command("sync")
@@ -239,7 +246,24 @@ def signals(
 
 @app.command("panel-count")
 def panel_count(
-    candidates: Annotated[str, typer.Option()] = "registry/candidates.yaml",
+    candidates: Annotated[Path, typer.Option()] = Path("registry/candidates.yaml"),
+    report: Annotated[Path, typer.Option()] = Path("reports/panel_count.md"),
+    no_collect: Annotated[
+        bool, typer.Option("--no-collect", help="Use prices already in the warehouse.")
+    ] = False,
 ) -> None:
-    """Count qualifying jumps across candidate markets."""
-    _not_yet("Task 7")
+    """Collect candidate markets' prices and count qualifying jumps and independent events."""
+    from rumour_pressure.panel import collect_and_count, render_report
+    from rumour_pressure.registry import load_registry
+
+    panel_reg = load_registry(candidates)
+    if not panel_reg.markets:
+        typer.echo(f"No markets in {candidates}.")
+        raise typer.Exit(code=1)
+    with Warehouse(config.warehouse_path()) as wh:
+        panel, failed = collect_and_count(wh, panel_reg, "panel", collect=not no_collect)
+        flagships, _ = collect_and_count(wh, load_registry(), "flagship", collect=False)
+    report.parent.mkdir(parents=True, exist_ok=True)
+    report.write_text(render_report(panel, flagships, failed))
+    typer.echo(report.read_text().split("## Definitions")[0])
+    typer.echo(f"Full report: {report}")

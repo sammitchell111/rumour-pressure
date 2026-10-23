@@ -1,6 +1,7 @@
 """Run jump detection for registry markets and store the results."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from datetime import datetime
 
 from rumour_pressure.config import JUMP_PARAMS, JumpParams
 from rumour_pressure.registry import RegistryMarket
@@ -21,10 +22,12 @@ class MarketJumps:
     question: str
     n_jumps: int
     n_qualifying: int  # ≥ MIN_DAYS_REMAINING days left and not a resolution move
+    qualifying_onsets: list[datetime] = field(default_factory=list)
+    n_bars: int = 0
 
 
 def detect_for_market(
-    wh: Warehouse, market: RegistryMarket, params: JumpParams = JUMP_PARAMS
+    wh: Warehouse, market: RegistryMarket, params: JumpParams = JUMP_PARAMS, store: bool = True
 ) -> MarketJumps:
     grid = price_grid(wh.con, [market.market_id])
     if market.venue in TRADE_BAR_VENUES:
@@ -32,9 +35,10 @@ def detect_for_market(
     rows = detect_jumps(
         market.market_id, grid, params, mode=market.detrend, close_time=market.close_time
     )
-    wh.replace_jumps(market.market_id, params_hash(params, market.detrend), rows)
+    if store:
+        wh.replace_jumps(market.market_id, params_hash(params, market.detrend), rows)
 
-    qualifying = 0
+    onsets = []
     for j in rows:
         price_after = grid.loc[grid["ts_utc"] == j.ts_end.replace(tzinfo=None), "price"]
         p = float(price_after.iloc[0]) if len(price_after) else 0.5
@@ -44,5 +48,8 @@ def detect_for_market(
             if market.close_time
             else float("inf")
         )
-        qualifying += days_left >= MIN_DAYS_REMAINING and not resolution
-    return MarketJumps(market.market_id, market.question, len(rows), qualifying)
+        if days_left >= MIN_DAYS_REMAINING and not resolution:
+            onsets.append(j.ts_start)
+    return MarketJumps(
+        market.market_id, market.question, len(rows), len(onsets), onsets, n_bars=len(grid)
+    )
