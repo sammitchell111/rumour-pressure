@@ -112,9 +112,15 @@ and ingest removes those posts and their stance labels.
 4. **Stance** — Qwen3.5-9B gets the market's resolution text + one post and returns
    `{label, confidence}` under a JSON schema. Prompt is versioned; changing it bumps
    `prompt_version` and never overwrites earlier labels.
-5. **Signals** — detrend each price series (constant-hazard baseline, parameterised),
-   detect jumps (default: |Δ| ≥ 5 points within 24 h, min trade count; all thresholds are
-   parameters), build the hourly stance index = weighted(supports_yes) − weighted(supports_no).
+5. **Signals** — detrend deadline markets with a constant-hazard baseline (per-market
+   `detrend` mode in the registry), detect jumps, build the hourly stance index =
+   weighted(supports_yes) − weighted(supports_no). Jump defaults (chosen 2026-10-23 after
+   comparing four variants on the flagships; all are parameters, stored as `params_hash`):
+   detrended move ≥ 5 points in 24 h; ≥ 3 trades; keeps ≥ 50% of its move 72 h later
+   (persistence); and ≥ 3× the market's own 30-day noise (noise-scaled). Dated at onset.
+   Thin markets' order-book bounce produced most raw "jumps" (1,080 → 210 on the
+   flagships). A jump *qualifies* for analysis with ≥ 60 days left and when it isn't a
+   resolution move (ending within 3 points of 0 or 1).
 6. **Dashboard** — per market: price lane per venue, attention lanes, stance index lane,
    jump markers; selecting a jump lists posts and headlines from the preceding 72 h
    (linked, not republished).

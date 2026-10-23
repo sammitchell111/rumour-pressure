@@ -12,7 +12,8 @@ from rumour_pressure.signals.detrend import expected_price, implied_hazard
 from rumour_pressure.signals.jumps import detect_jumps
 
 T0 = datetime(2026, 1, 1, tzinfo=UTC)
-PARAMS = JumpParams(min_delta=0.05, window_hours=24, min_trades=3)
+# Filters off unless a test turns them on, so each test exercises one rule.
+PARAMS = JumpParams(min_delta=0.05, window_hours=24, min_trades=3, min_persistence=0, min_z=0)
 
 
 def series(prices, n_trades=5):
@@ -103,7 +104,7 @@ def test_news_on_top_of_decay_is_still_found_under_hazard_detrending():
     assert jump.residual == pytest.approx(0.15, abs=0.01)
 
 
-PERSIST = JumpParams(min_delta=0.05, window_hours=24, min_trades=3, min_persistence=0.5)
+PERSIST = JumpParams(min_delta=0.05, window_hours=24, min_trades=3, min_persistence=0.5, min_z=0)
 
 
 def test_persistence_rejects_spikes_but_keeps_their_snap_backs():
@@ -114,7 +115,7 @@ def test_persistence_rejects_spikes_but_keeps_their_snap_backs():
     assert with_ and all(j.delta < 0 for j in with_)  # the return trip persists
 
 
-ZSCORE = JumpParams(min_delta=0.05, window_hours=24, min_trades=3, min_z=3.0)
+ZSCORE = JumpParams(min_delta=0.05, window_hours=24, min_trades=3, min_persistence=0, min_z=3.0)
 
 
 def test_noise_scaled_threshold_ignores_a_market_that_always_bounces():
@@ -148,5 +149,7 @@ def test_a_jump_too_recent_to_judge_is_kept():
 def test_params_hash_changes_with_parameters_and_mode():
     prices = [0.20] * 100 + [0.32] * 100
     a = detect_jumps("m", series(prices), PARAMS, mode="none")[0].params_hash
-    b = detect_jumps("m", series(prices), JumpParams(min_delta=0.06), mode="none")[0].params_hash
+    b = detect_jumps(
+        "m", series(prices), JumpParams(min_delta=0.06, min_persistence=0, min_z=0), mode="none"
+    )[0].params_hash
     assert a != b

@@ -64,14 +64,14 @@ class JumpParams:
     min_delta: float = 0.05  # 5 probability points
     window_hours: int = 24
     min_trades: int = 3
-    # A jump must keep at least this share of its move `persistence_hours` later.
-    # 0 disables the test. Pending Sam's decision (2026-10-23); see PLAN.md Task 6.
+    # A jump must keep at least this share of its move `persistence_hours` later
+    # (0 disables). Rejects order-book bounce on thin markets. Chosen by Sam 2026-10-23.
     persistence_hours: int = 72
-    min_persistence: float = 0.0
+    min_persistence: float = 0.5
     # |residual| must also be ≥ min_z × the market's own std of 24 h residuals over the
     # trailing `noise_lookback_hours` (needs ≥ 7 days of history; else only min_delta).
-    # 0 disables. Pending Sam's decision (2026-10-23).
-    min_z: float = 0.0
+    # 0 disables. Chosen by Sam 2026-10-23 (option D: both filters).
+    min_z: float = 3.0
     noise_lookback_hours: int = 720
 
 

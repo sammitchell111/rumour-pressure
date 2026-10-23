@@ -103,10 +103,10 @@ open question in the spec.
 |Δ| ≥ 5 points within 24 h, minimum trade count), writing to `jumps` and drawn as markers
 on the dashboard.
 **Acceptance criteria:**
-- [ ] Synthetic series with injected jumps: every jump found, none on a flat series
+- [x] Synthetic series with injected jumps: every jump found, none on a flat series
       (success criterion 5).
-- [ ] Each flagship market has a jump list; parameters are stored as `params_hash`.
-- [ ] Jumps appear as markers on the dashboard price lanes.
+- [x] Each flagship market has a jump list; parameters are stored as `params_hash`.
+- [x] Jumps appear as markers on the dashboard price lanes.
 **Verification:** `uv run pytest tests/unit/test_signals.py`; `uv run rp signals --market <id>`
 **Dependencies:** Task 5
 **Files:** `signals/detrend.py`, `signals/jumps.py`, `tests/unit/test_signals.py`, `dashboard/app.py`
