@@ -5,7 +5,7 @@ candidates and `rp registry add` to fetch a market's full details and record it.
 """
 
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, model_validator
@@ -28,6 +28,9 @@ class RegistryMarket(BaseModel):
     close_time: UtcDatetime | None = None
     closed: bool = False
     entity_keys: list[str] = Field(default_factory=list)
+    # "hazard" for "will X happen by date D?" questions, whose price should decay as the
+    # deadline nears; "none" where that model doesn't apply (e.g. "will Y attend?").
+    detrend: Literal["hazard", "none"] = "none"
 
     def to_row(self) -> MarketRow:
         return MarketRow(

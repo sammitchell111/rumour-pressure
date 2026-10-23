@@ -29,6 +29,6 @@ def test_init_db_creates_the_warehouse(tmp_path, monkeypatch):
 
 
 def test_unbuilt_commands_say_which_task_builds_them():
-    result = runner.invoke(app, ["signals", "--market", "x"])
+    result = runner.invoke(app, ["classify", "--market", "x"])
     assert result.exit_code != 0
-    assert "Task 6" in result.output
+    assert "Task 11" in result.output

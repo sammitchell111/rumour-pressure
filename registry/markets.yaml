@@ -18,6 +18,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: hazard
 - market_id: manifold:p68cEcRu9g
   venue: manifold
   venue_ref:
@@ -80,6 +81,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: hazard
 - market_id: manifold:wvmp921mda
   venue: manifold
   venue_ref:
@@ -96,6 +98,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: hazard
 - market_id: manifold:wy24cvpu2l
   venue: manifold
   venue_ref:
@@ -110,6 +113,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: hazard
 - market_id: manifold:xeTLdOm3Np7Lfh5eBWT0
   venue: manifold
   venue_ref:
@@ -124,6 +128,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: hazard
 - market_id: manifold:yQ2sIq0OOE
   venue: manifold
   venue_ref:
@@ -171,6 +176,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: hazard
 - market_id: polymarket:1048198
   venue: polymarket
   venue_ref:
@@ -194,6 +200,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: hazard
 - market_id: polymarket:1048199
   venue: polymarket
   venue_ref:
@@ -217,6 +224,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: hazard
 - market_id: polymarket:253355
   venue: polymarket
   venue_ref:
@@ -249,6 +257,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: hazard
 - market_id: polymarket:254422
   venue: polymarket
   venue_ref:
@@ -280,6 +289,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: hazard
 - market_id: polymarket:3734497
   venue: polymarket
   venue_ref:
@@ -303,6 +313,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: hazard
 - market_id: polymarket:535013
   venue: polymarket
   venue_ref:
@@ -326,6 +337,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: hazard
 - market_id: polymarket:582717
   venue: polymarket
   venue_ref:
@@ -357,6 +369,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: hazard
 - market_id: manifold:5PC60tucAZ
   venue: manifold
   venue_ref:
@@ -385,6 +398,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: none
 - market_id: manifold:dcChsS5zRp
   venue: manifold
   venue_ref:
@@ -401,6 +415,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: hazard
 - market_id: polymarket:2839321
   venue: polymarket
   venue_ref:
@@ -434,6 +449,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: hazard
 - market_id: kalshi:KXSWIFTWEDDING-26DEC31-ALE
   venue: kalshi
   venue_ref:
@@ -461,6 +477,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: none
 - market_id: kalshi:KXSWIFTWEDDING-26DEC31-DIO
   venue: kalshi
   venue_ref:
@@ -488,6 +505,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: none
 - market_id: kalshi:KXSWIFTWEDDING-26DEC31-VIV
   venue: kalshi
   venue_ref:
@@ -515,6 +533,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: none
 - market_id: manifold:txlyUI6GiSL18s36Z95J
   venue: manifold
   venue_ref:
@@ -535,6 +554,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: hazard
 - market_id: polymarket:2382622
   venue: polymarket
   venue_ref:
@@ -558,6 +578,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: hazard
 - market_id: polymarket:2448339
   venue: polymarket
   venue_ref:
@@ -580,6 +601,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: none
 - market_id: polymarket:253406
   venue: polymarket
   venue_ref:
@@ -603,6 +625,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: hazard
 - market_id: polymarket:254426
   venue: polymarket
   venue_ref:
@@ -627,6 +650,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: hazard
 - market_id: polymarket:2744489
   venue: polymarket
   venue_ref:
@@ -662,6 +686,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: none
 - market_id: polymarket:516191
   venue: polymarket
   venue_ref:
@@ -685,6 +710,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: hazard
 - market_id: polymarket:516906
   venue: polymarket
   venue_ref:
@@ -708,6 +734,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: hazard
 - market_id: polymarket:581646
   venue: polymarket
   venue_ref:
@@ -731,6 +758,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: hazard
 - market_id: polymarket:581647
   venue: polymarket
   venue_ref:
@@ -754,6 +782,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: hazard
 - market_id: polymarket:903822
   venue: polymarket
   venue_ref:
@@ -777,6 +806,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: hazard
 - market_id: polymarket:941755
   venue: polymarket
   venue_ref:
@@ -800,6 +830,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: none
 - market_id: polymarket:941756
   venue: polymarket
   venue_ref:
@@ -823,6 +854,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: none
 - market_id: polymarket:941757
   venue: polymarket
   venue_ref:
@@ -846,6 +878,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: none
 - market_id: polymarket:941759
   venue: polymarket
   venue_ref:
@@ -869,6 +902,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: none
 - market_id: polymarket:941760
   venue: polymarket
   venue_ref:
@@ -892,6 +926,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: none
 - market_id: polymarket:941761
   venue: polymarket
   venue_ref:
@@ -915,6 +950,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: none
 - market_id: polymarket:941762
   venue: polymarket
   venue_ref:
@@ -938,6 +974,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: none
 - market_id: polymarket:941763
   venue: polymarket
   venue_ref:
@@ -961,6 +998,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: none
 - market_id: polymarket:941765
   venue: polymarket
   venue_ref:
@@ -984,6 +1022,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: none
 - market_id: polymarket:941766
   venue: polymarket
   venue_ref:
@@ -1007,6 +1046,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: none
 - market_id: polymarket:941767
   venue: polymarket
   venue_ref:
@@ -1030,6 +1070,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: none
 - market_id: polymarket:941768
   venue: polymarket
   venue_ref:
@@ -1053,6 +1094,7 @@ markets:
   entity_keys:
   - Taylor Swift
   - Travis Kelce
+  detrend: none
 extra_live_keywords:
 - Swifties
 - Swiftie

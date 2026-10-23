@@ -5,17 +5,10 @@ hours with activity; `price_grid` forward-fills them onto a full hourly grid per
 (starting at each market's first bar, ending at its last), marking observed hours.
 """
 
-from datetime import UTC, datetime
-
 import duckdb
 import pandas as pd
 
-
-def _naive_utc(ts: datetime | None) -> datetime | None:
-    """The warehouse stores naive UTC; aware inputs are converted, naive ones assumed UTC."""
-    if ts is None or ts.tzinfo is None:
-        return ts
-    return ts.astimezone(UTC).replace(tzinfo=None)
+from rumour_pressure.store.queries import price_grid  # noqa: F401  (re-exported)
 
 
 def connect_read_only(path: str) -> duckdb.DuckDBPyConnection:
@@ -35,38 +28,26 @@ def markets(con: duckdb.DuckDBPyConnection) -> pd.DataFrame:
     ).df()
 
 
-def price_grid(
-    con: duckdb.DuckDBPyConnection,
-    market_ids: list[str],
-    start: datetime | None = None,
-    end: datetime | None = None,
-) -> pd.DataFrame:
-    """Hourly, forward-filled prices: market_id, ts_utc, price, volume, n_trades, observed."""
+def jumps(con: duckdb.DuckDBPyConnection, market_ids: list[str]) -> pd.DataFrame:
+    """Detected jumps with the context the analysis filters on.
+
+    days_remaining: days from onset to the market's close (time-remaining rule).
+    is_resolution:  the price ends the jump within 3 points of 0 or 1 — the outcome becoming
+                    known, which says little about rumour.
+    """
     if not market_ids:
-        return pd.DataFrame(
-            columns=["market_id", "ts_utc", "price", "volume", "n_trades", "observed"]
-        )
-    start, end = _naive_utc(start), _naive_utc(end)
+        return pd.DataFrame()
     return con.execute(
         """
-        WITH span AS (
-            SELECT market_id, min(ts_utc) AS lo, max(ts_utc) AS hi
-            FROM prices WHERE market_id IN (SELECT unnest(?)) GROUP BY market_id
-        ),
-        grid AS (
-            SELECT market_id, unnest(generate_series(lo, hi, INTERVAL 1 HOUR)) AS ts_utc
-            FROM span
-        ),
-        filled AS (  -- fill before filtering, so a window starts with the carried-in price
-            SELECT g.market_id, g.ts_utc,
-                   last_value(p.price IGNORE NULLS)
-                       OVER (PARTITION BY g.market_id ORDER BY g.ts_utc) AS price,
-                   p.volume, p.n_trades, p.price IS NOT NULL AS observed
-            FROM grid g LEFT JOIN prices p USING (market_id, ts_utc)
-        )
-        SELECT * FROM filled
-        WHERE (? IS NULL OR ts_utc >= ?) AND (? IS NULL OR ts_utc <= ?)
-        ORDER BY market_id, ts_utc
+        SELECT j.*, m.question,
+               date_diff('hour', j.ts_start, m.close_time) / 24.0 AS days_remaining,
+               p.price AS price_after,
+               (p.price <= 0.03 OR p.price >= 0.97) AS is_resolution
+        FROM jumps j
+        JOIN markets m USING (market_id)
+        LEFT JOIN prices p ON p.market_id = j.market_id AND p.ts_utc = j.ts_end
+        WHERE j.market_id IN (SELECT unnest(?))
+        ORDER BY j.ts_start
         """,
-        [market_ids, start, start, end, end],
+        [market_ids],
     ).df()

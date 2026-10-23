@@ -66,6 +66,13 @@ class Warehouse:
             self.con.execute(f"DELETE FROM {table} WHERE post_id IN (SELECT unnest(?))", [ids])
         log.info("deleted %d posts at their authors' request", len(ids))
 
+    def replace_jumps(self, market_id: str, params_hash: str, rows: list[Row]) -> None:
+        """Swap in a fresh jump list for one market and parameter set (stale ones removed)."""
+        self.con.execute(
+            "DELETE FROM jumps WHERE market_id = ? AND params_hash = ?", [market_id, params_hash]
+        )
+        self.upsert(rows)
+
     def tables(self) -> set[str]:
         return {name for (name,) in self.con.execute("SHOW TABLES").fetchall()}
 

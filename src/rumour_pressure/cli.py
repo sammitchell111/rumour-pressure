@@ -208,9 +208,33 @@ def bench_stance(n: int = 200) -> None:
 
 
 @app.command()
-def signals(market: MarketOpt) -> None:
-    """Detrend prices, detect jumps and build the stance index."""
-    _not_yet("Task 6")
+def signals(
+    market: Annotated[str | None, typer.Option("--market", help="Registry market ID.")] = None,
+    group: Annotated[str | None, typer.Option("--group", help="Registry group.")] = None,
+) -> None:
+    """Detrend prices and detect jumps for registry markets (stance index: Task 14)."""
+    from rumour_pressure.registry import load_registry
+    from rumour_pressure.signals.run import MIN_DAYS_REMAINING, detect_for_market
+
+    targets = [
+        m
+        for m in load_registry().markets
+        if (market is None or m.market_id == market) and (group is None or m.group == group)
+    ]
+    total = qualifying = 0
+    with Warehouse(config.warehouse_path()) as wh:
+        for m in targets:
+            res = detect_for_market(wh, m)
+            total += res.n_jumps
+            qualifying += res.n_qualifying
+            typer.echo(
+                f"  {m.market_id:<42} {m.detrend:<6} jumps={res.n_jumps:>3} "
+                f"qualifying={res.n_qualifying:>3}  {m.question[:48]}"
+            )
+    typer.echo(
+        f"Done: {total} jumps across {len(targets)} markets; {qualifying} qualify "
+        f"(≥{MIN_DAYS_REMAINING:.0f} days left, not a resolution move)."
+    )
 
 
 @app.command("panel-count")

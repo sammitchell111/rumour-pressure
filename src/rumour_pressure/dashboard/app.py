@@ -9,8 +9,11 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from rumour_pressure import config
+from rumour_pressure.config import JUMP_PARAMS
 from rumour_pressure.dashboard import data
 from rumour_pressure.registry import load_registry
+from rumour_pressure.signals.jumps import params_hash
+from rumour_pressure.signals.run import MIN_DAYS_REMAINING
 
 st.set_page_config(page_title="Rumour pressure", layout="wide")
 
@@ -66,6 +69,41 @@ def main() -> None:
                 ),
             )
         )
+    # Jumps under the current parameters: filled markers qualify for analysis;
+    # hollow ones are excluded (under 60 days left, or a resolution move).
+    current = {
+        m.market_id: params_hash(JUMP_PARAMS, m.detrend)
+        for m in registry.markets
+        if m.market_id in chosen
+    }
+    jumps = data.jumps(con, chosen)
+    if not jumps.empty:
+        jumps = jumps[jumps["params_hash"] == jumps["market_id"].map(current)]
+        jumps["qualifies"] = (jumps["days_remaining"] >= MIN_DAYS_REMAINING) & ~jumps[
+            "is_resolution"
+        ].fillna(False)
+        for qualifies, sub in jumps.groupby("qualifies"):
+            fig.add_trace(
+                go.Scatter(
+                    x=sub["ts_start"],
+                    y=sub["price_after"],
+                    mode="markers",
+                    marker=dict(
+                        symbol="diamond",
+                        size=9,
+                        color="black" if qualifies else "rgba(0,0,0,0)",
+                        line=dict(color="black", width=1.5),
+                    ),
+                    name="jump (qualifies)" if qualifies else "jump (excluded)",
+                    customdata=sub[["question", "delta", "residual", "days_remaining"]],
+                    hovertemplate=(
+                        "onset %{x|%Y-%m-%d %H:00} UTC<br>%{customdata[0]}<br>"
+                        "move %{customdata[1]:+.2f} (detrended %{customdata[2]:+.2f})<br>"
+                        "%{customdata[3]:.0f} days left<extra></extra>"
+                    ),
+                )
+            )
+
     fig.update_layout(
         height=520,
         yaxis=dict(title="YES price", range=[0, 1], tickformat=".0%"),
@@ -73,7 +111,26 @@ def main() -> None:
         legend=dict(orientation="h", yanchor="top", y=-0.15),
         margin=dict(l=40, r=20, t=20, b=40),
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
+
+    if not jumps.empty:
+        n_q = int(jumps["qualifies"].sum())
+        with st.expander(f"Jumps: {len(jumps)} detected, {n_q} qualify"):
+            st.dataframe(
+                jumps[
+                    [
+                        "ts_start",
+                        "question",
+                        "delta",
+                        "residual",
+                        "days_remaining",
+                        "n_trades",
+                        "qualifies",
+                    ]
+                ].sort_values("ts_start", ascending=False),
+                hide_index=True,
+                width="stretch",
+            )
 
     with st.expander("Markets and resolution rules"):
         for r in in_group[in_group["market_id"].isin(chosen)].itertuples():
