@@ -117,14 +117,30 @@ on the dashboard.
 run `rp panel-count`, which collects their prices and reports qualifying jumps (raw and
 volume-filtered), per venue and in total.
 **Acceptance criteria:**
-- [ ] Report lists jumps per market, per venue and pooled, with and without the volume filter.
-- [ ] Report saved to `reports/panel_count.md` (success criterion 7).
+- [x] Report lists jumps per market, per venue and pooled, with and without the volume filter.
+- [x] Report saved to `reports/panel_count.md` (success criterion 7).
 **Verification:** `uv run rp panel-count --candidates registry/candidates.yaml`; Sam reviews the report.
 **Dependencies:** Task 6
 **Files:** `registry/candidates.yaml`, `src/rumour_pressure/panel.py`, `reports/panel_count.md`
 **Scope:** S–M
 
 ### Checkpoint B: go/no-go — review with Sam
+
+**Result (2026-10-23, `reports/panel_count.md`):** 302 independent qualifying events in 37
+families (168 from a 51-family, 74-market panel; 134 from the Swift flagships), above the
+"dozens to low hundreds" bar. Caveats:
+- Events are concentrated: the Swift wedding family has 95, and six families hold over
+  half of all events. Inference must cluster by family; the effective sample is ~37
+  families, not 302 events.
+- 17 panel families have no qualifying events — mostly politicians' divorce markets,
+  which drifted without news. That is informative, not a failure.
+- Under the plain 5-point rule there were 723 "events"; the filters remove order-book
+  bounce, which made up most raw moves on thin markets (answers the question below).
+- 4 markets from 2021–22 have no price history (pre-CLOB Polymarket).
+- Occasionally a family has more events under the filters than under the plain rule
+  (Ronaldo wedding 3 vs 2): stricter flagging splits long runs, and under the plain rule
+  the merged run ends at a resolution price and is excluded. Minor; noted for the method.
+
 - [ ] Enough pooled jumps for a panel (dozens to low hundreds)? If not, decide: widen the
       candidate pool, relax thresholds, or narrow the research question.
 - [ ] Do most large moves come from single low-volume trades?
