@@ -1,5 +1,6 @@
 """`rp` command-line interface. Commands not yet built say which task builds them."""
 
+import contextlib
 import logging
 from typing import Annotated
 
@@ -45,17 +46,42 @@ def registry_find(entity: Annotated[str, typer.Option("--entity")]) -> None:
 @app.command()
 def collect(
     source: Annotated[str, typer.Argument(help="Source name, or 'all'.")],
-    market: MarketOpt,
+    market: Annotated[str | None, typer.Option("--market", help="Market ID.")] = None,
     since: Annotated[str | None, typer.Option(help="YYYY-MM-DD")] = None,
 ) -> None:
-    """Backfill one source (or all) for a market."""
+    """Backfill one source (or all) for a market. `bluesky` loads the live logger's output."""
+    if source == "bluesky":
+        from rumour_pressure.collect.bluesky import ingest_staged
+
+        with Warehouse(config.warehouse_path()) as wh:
+            summary = ingest_staged(config.live_stage_dir("bluesky"), wh)
+        typer.echo(
+            f"Loaded {summary.posts} posts, applied {summary.deletions} deletions, "
+            f"{summary.gaps} logger gaps on record."
+        )
+        return
     _not_yet("Tasks 4-10")
 
 
 @app.command("bluesky-log")
-def bluesky_log() -> None:
-    """Run the live Bluesky logger (long-running)."""
-    _not_yet("Task 2")
+def bluesky_log(
+    keyword: Annotated[
+        list[str] | None,
+        typer.Option("--keyword", "-k", help="Phrase to match; repeatable. Defaults to config."),
+    ] = None,
+) -> None:
+    """Run the live Bluesky logger until Ctrl-C. Load its output with `rp collect bluesky`."""
+    import asyncio
+
+    from rumour_pressure.collect.bluesky import BlueskyLogger, Matcher
+
+    keywords = keyword or list(config.DEFAULT_LIVE_KEYWORDS)
+    stage = config.live_stage_dir("bluesky")
+    logger = BlueskyLogger(Matcher(keywords), config.author_salt(), stage)
+    typer.echo(f"Logging Bluesky posts matching {keywords} to {stage}. Ctrl-C to stop.")
+    with contextlib.suppress(KeyboardInterrupt):
+        asyncio.run(logger.run())
+    typer.echo(f"Stopped. Staged {logger.posts_staged} posts this session.")
 
 
 @app.command()

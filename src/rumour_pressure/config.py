@@ -1,6 +1,7 @@
 """Paths, rate limits and analysis defaults. Everything tunable lives here, not in modules."""
 
 import os
+import secrets
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -18,6 +19,30 @@ def warehouse_path() -> Path:
 
 def raw_cache_dir(source: str) -> Path:
     return data_dir() / "raw" / source
+
+
+def live_stage_dir(source: str) -> Path:
+    """Where long-running loggers stage records for ingest (they never open the warehouse)."""
+    return data_dir() / "live" / source
+
+
+def author_salt() -> str:
+    """Salt for hashing author IDs. From RP_AUTHOR_SALT, else a per-install secret file.
+
+    The salt must stay the same across runs, or the same author gets different hashes.
+    """
+    if salt := os.environ.get("RP_AUTHOR_SALT"):
+        return salt
+    path = data_dir() / ".author_salt"
+    if not path.exists():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(secrets.token_hex(16))
+        path.chmod(0o600)
+    return path.read_text().strip()
+
+
+# Used by the Bluesky logger until the market registry (Task 3) supplies keywords.
+DEFAULT_LIVE_KEYWORDS = ("Taylor Swift", "Swifties", "Swiftie", "#TaylorSwift", "Travis Kelce")
 
 
 @dataclass(frozen=True)

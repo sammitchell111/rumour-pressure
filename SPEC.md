@@ -66,6 +66,13 @@ jumps     (market_id, ts_start, ts_end, delta, residual, volume, n_trades, param
 - `author_hash` is a salted hash; raw usernames are never stored.
 - `label` ∈ {`supports_yes`, `supports_no`, `irrelevant`}.
 
+**One writer at a time.** DuckDB allows a single writing process per file, so long-running
+processes never hold the warehouse open. The Bluesky logger appends to daily JSONL files in
+`data/live/bluesky/`; `rp collect bluesky` loads them (idempotently) and removes completed
+days. Batch collectors open the warehouse only while writing; the dashboard opens it
+read-only. Author deletions are honoured: the logger records deletions of posts it kept,
+and ingest removes those posts and their stance labels.
+
 ## Pipeline
 
 1. **Registry** — `registry/markets.yaml` lists markets with venue IDs, resolution text and

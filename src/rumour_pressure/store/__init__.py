@@ -57,6 +57,15 @@ class Warehouse:
             log.info("upserted %d rows into %s", len(batch), model.table)
         return written
 
+    def delete_posts(self, post_ids: Iterable[str]) -> None:
+        """Remove posts (and any stance labels on them), e.g. when an author deletes one."""
+        ids = list(post_ids)
+        if not ids:
+            return
+        for table in ("stance", "posts"):
+            self.con.execute(f"DELETE FROM {table} WHERE post_id IN (SELECT unnest(?))", [ids])
+        log.info("deleted %d posts at their authors' request", len(ids))
+
     def tables(self) -> set[str]:
         return {name for (name,) in self.con.execute("SHOW TABLES").fetchall()}
 
