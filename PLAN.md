@@ -78,8 +78,8 @@ resolution text and entity keywords. Pin the exact Ollama model tag here too.
 and create the Streamlit dashboard with a market selector and one hourly price line.
 This is the first end-to-end slice.
 **Acceptance criteria:**
-- [ ] Bet history parses into a price series; re-running writes no duplicates.
-- [ ] The dashboard shows the Manifold price line for any registry market.
+- [x] Bet history parses into a price series; re-running writes no duplicates.
+- [x] The dashboard shows the Manifold price line for any registry market.
 **Verification:** `uv run pytest tests/unit/test_manifold.py`; open the dashboard and check one market by eye against Manifold's own chart.
 **Dependencies:** Tasks 1, 3
 **Files:** `collect/manifold.py`, `dashboard/app.py`, `tests/unit/test_manifold.py`, fixtures
@@ -90,9 +90,9 @@ This is the first end-to-end slice.
 where available. Record how far back and how fine their history goes — this answers an
 open question in the spec.
 **Acceptance criteria:**
-- [ ] Both venues backfill flagship markets into `prices`; re-runs are idempotent.
-- [ ] The dashboard shows one price line per venue on the same axis.
-- [ ] History depth and granularity per venue are written into SPEC.md.
+- [x] Both venues backfill flagship markets into `prices`; re-runs are idempotent.
+- [x] The dashboard shows each selected market as a price line on one shared axis.
+- [x] History depth and granularity per venue are written into SPEC.md.
 **Verification:** `uv run pytest tests/unit/test_polymarket.py tests/unit/test_kalshi.py`; `uv run pytest -m live`
 **Dependencies:** Task 4
 **Files:** `collect/polymarket.py`, `collect/kalshi.py`, tests + fixtures, `dashboard/app.py`

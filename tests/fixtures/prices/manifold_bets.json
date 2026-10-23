@@ -1,0 +1,80 @@
+[
+ {
+  "id": "IsyqZA0ytOuL",
+  "contractId": "6RugqEP5UC",
+  "createdTime": 1784858819298,
+  "probBefore": 0.8156680676302389,
+  "probAfter": 0.7184082864561564,
+  "amount": 27.846221655585254,
+  "shares": 111.33287375540117,
+  "outcome": "NO",
+  "isFilled": true,
+  "isCancelled": false,
+  "isRedemption": false
+ },
+ {
+  "id": "0ylPNcP8cn8L",
+  "contractId": "6RugqEP5UC",
+  "createdTime": 1784858273675,
+  "probBefore": 0.72,
+  "probAfter": 0.8156680676302389,
+  "amount": 0,
+  "shares": 64.82266622886729,
+  "outcome": "YES",
+  "isFilled": true,
+  "isCancelled": false,
+  "isRedemption": true
+ },
+ {
+  "id": "sczpOd0P2gnR",
+  "contractId": "6RugqEP5UC",
+  "createdTime": 1780268665103,
+  "probBefore": 0.72,
+  "probAfter": 0.72,
+  "amount": 5.022610840376579,
+  "shares": 17.93789585848778,
+  "outcome": "NO",
+  "isFilled": true,
+  "isCancelled": true,
+  "isRedemption": false
+ },
+ {
+  "id": "qR5EgPuN6Rlz",
+  "contractId": "6RugqEP5UC",
+  "createdTime": 1780169447528,
+  "probBefore": 0.7090989147197116,
+  "probAfter": 0.72,
+  "amount": 50,
+  "shares": 69.48898668070316,
+  "outcome": "YES",
+  "isFilled": true,
+  "isCancelled": false,
+  "isRedemption": false
+ },
+ {
+  "id": "SZlEcsgn0uQ6",
+  "contractId": "6RugqEP5UC",
+  "createdTime": 1780097545341,
+  "probBefore": 0.7594457950192366,
+  "probAfter": 0.7090989147197116,
+  "amount": 7.76950068388021,
+  "shares": 29.322899413604148,
+  "outcome": "NO",
+  "isFilled": true,
+  "isCancelled": false,
+  "isRedemption": false
+ },
+ {
+  "id": "I5C5N952yCNq",
+  "contractId": "6RugqEP5UC",
+  "createdTime": 1780065319562,
+  "probBefore": 0.6998043019312351,
+  "probAfter": 0.7594457950192366,
+  "amount": 25,
+  "shares": 34.215353989867786,
+  "outcome": "YES",
+  "isFilled": true,
+  "isCancelled": false,
+  "isRedemption": false
+ }
+]

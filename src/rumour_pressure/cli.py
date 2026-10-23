@@ -109,13 +109,57 @@ def registry_sync() -> None:
     typer.echo(f"Synced {n} markets to the warehouse.")
 
 
+PRICE_SOURCES = ("manifold", "polymarket", "kalshi")
+
+
+def _collect_prices(venues: tuple[str, ...], market: str | None, group: str | None) -> None:
+    from importlib import import_module
+
+    from rumour_pressure.registry import load_registry
+
+    reg = load_registry()
+    targets = [
+        m
+        for m in reg.markets
+        if m.venue in venues
+        and (market is None or m.market_id == market)
+        and (group is None or m.group == group)
+    ]
+    if not targets:
+        typer.echo("No registry markets match.")
+        raise typer.Exit(code=1)
+    failed = []
+    with Warehouse(config.warehouse_path()) as wh:
+        wh.upsert(m.to_row() for m in targets)
+        for m in targets:
+            try:
+                rows = import_module(f"rumour_pressure.collect.{m.venue}").collect_prices(m)
+            except Exception as exc:  # keep going; report at the end
+                failed.append(m.market_id)
+                typer.echo(f"  FAILED {m.market_id}: {exc}")
+                continue
+            wh.upsert(rows)
+            typer.echo(f"  {m.market_id:<42} {len(rows):>6} hourly bars  {m.question[:50]}")
+    typer.echo(f"Done: {len(targets) - len(failed)}/{len(targets)} markets collected.")
+    if failed:
+        raise typer.Exit(code=1)
+
+
 @app.command()
 def collect(
-    source: Annotated[str, typer.Argument(help="Source name, or 'all'.")],
-    market: Annotated[str | None, typer.Option("--market", help="Market ID.")] = None,
-    since: Annotated[str | None, typer.Option(help="YYYY-MM-DD")] = None,
+    source: Annotated[
+        str, typer.Argument(help="prices | manifold | polymarket | kalshi | bluesky")
+    ],
+    market: Annotated[str | None, typer.Option("--market", help="Registry market ID.")] = None,
+    group: Annotated[str | None, typer.Option("--group", help="Registry group.")] = None,
 ) -> None:
-    """Backfill one source (or all) for a market. `bluesky` loads the live logger's output."""
+    """Backfill a source for registry markets. `bluesky` loads the live logger's output."""
+    if source == "prices":
+        _collect_prices(PRICE_SOURCES, market, group)
+        return
+    if source in PRICE_SOURCES:
+        _collect_prices((source,), market, group)
+        return
     if source == "bluesky":
         from rumour_pressure.collect.bluesky import ingest_staged
 

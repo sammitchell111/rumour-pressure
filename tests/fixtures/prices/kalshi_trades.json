@@ -1,0 +1,77 @@
+{
+ "cursor": "EhIKEAckLs9m2aAHjLPSQcDcZIoaDAjB6uDWBhDI1621AQ",
+ "trades": [
+  {
+   "count_fp": "6.68",
+   "created_time": "2026-10-22T22:45:44.021107Z",
+   "is_block_trade": false,
+   "no_price_dollars": "0.3000",
+   "taker_book_side": "bid",
+   "taker_outcome_side": "yes",
+   "taker_side": "yes",
+   "ticker": "KXSWIFTWEDDING-26DEC31-DIO",
+   "trade_id": "0724f6bd-df39-8c9b-9e00-74c2f9328ee5",
+   "yes_price_dollars": "0.7000"
+  },
+  {
+   "count_fp": "14.10",
+   "created_time": "2026-10-22T22:45:44.021107Z",
+   "is_block_trade": false,
+   "no_price_dollars": "0.2900",
+   "taker_book_side": "bid",
+   "taker_outcome_side": "yes",
+   "taker_side": "yes",
+   "ticker": "KXSWIFTWEDDING-26DEC31-DIO",
+   "trade_id": "0724f33b-fea9-879e-9ce1-c46cf4f13bd9",
+   "yes_price_dollars": "0.7100"
+  },
+  {
+   "count_fp": "1.27",
+   "created_time": "2026-10-22T01:33:07.015168Z",
+   "is_block_trade": false,
+   "no_price_dollars": "0.3400",
+   "taker_book_side": "ask",
+   "taker_outcome_side": "no",
+   "taker_side": "no",
+   "ticker": "KXSWIFTWEDDING-26DEC31-DIO",
+   "trade_id": "0724e5ec-a9c1-8137-1644-f44cb91f572b",
+   "yes_price_dollars": "0.6600"
+  },
+  {
+   "count_fp": "1.00",
+   "created_time": "2026-10-22T01:33:07.015168Z",
+   "is_block_trade": false,
+   "no_price_dollars": "0.3300",
+   "taker_book_side": "ask",
+   "taker_outcome_side": "no",
+   "taker_side": "no",
+   "ticker": "KXSWIFTWEDDING-26DEC31-DIO",
+   "trade_id": "0724d8ef-fc49-814b-3538-8a2b567d4f11",
+   "yes_price_dollars": "0.6700"
+  },
+  {
+   "count_fp": "70.34",
+   "created_time": "2026-10-22T01:23:56.966717Z",
+   "is_block_trade": false,
+   "no_price_dollars": "0.3000",
+   "taker_book_side": "bid",
+   "taker_outcome_side": "yes",
+   "taker_side": "yes",
+   "ticker": "KXSWIFTWEDDING-26DEC31-DIO",
+   "trade_id": "0724e441-bc89-b4dc-745f-b1848d1eed44",
+   "yes_price_dollars": "0.7000"
+  },
+  {
+   "count_fp": "1.43",
+   "created_time": "2026-10-21T03:45:05.380333Z",
+   "is_block_trade": false,
+   "no_price_dollars": "0.3200",
+   "taker_book_side": "bid",
+   "taker_outcome_side": "yes",
+   "taker_side": "yes",
+   "ticker": "KXSWIFTWEDDING-26DEC31-DIO",
+   "trade_id": "07242ecf-66d9-a007-8cb3-d241c0dc648a",
+   "yes_price_dollars": "0.6800"
+  }
+ ]
+}

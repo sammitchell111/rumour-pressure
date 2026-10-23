@@ -215,7 +215,18 @@ def _kalshi_open_events() -> dict[str, Any]:
         log.info("kalshi: %d events scanned", len(events))
         if not cursor:
             break
-    data = {"events": events}
+    # Keep only what the finder reads: the raw scan is ~400 MB, this is a few MB.
+    market_keys = ("ticker", "yes_sub_title", "close_time", "status", "volume_fp", "volume")
+    data = {
+        "events": [
+            {
+                "title": e.get("title"),
+                "series_ticker": e.get("series_ticker"),
+                "markets": [{k: m.get(k) for k in market_keys} for m in e.get("markets", [])],
+            }
+            for e in events
+        ]
+    }
     cache.parent.mkdir(parents=True, exist_ok=True)
     cache.write_text(json.dumps(data))
     return data

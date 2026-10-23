@@ -67,6 +67,17 @@ Target machine: MacBook Air, M3, 16 GB unified memory.
 
 Excluded: Google Trends (no reliable free API), X/TikTok/Instagram (cost / no research access).
 
+**Price history as measured (Task 4–5, 2026-10-23).** Every venue is reduced to trades,
+then to hourly bars (close = last YES price in the hour; volume and trade count summed).
+
+| Venue | Price source | Depth | Volume source | Notes |
+|---|---|---|---|---|
+| Polymarket | CLOB `prices-history` with `startTs` + `fidelity=60` | full market life, hourly | data-api trade log | `interval=max` returns nothing for resolved markets; trade log pages to ~10,000 trades, so early hours of the biggest markets have volume = NULL (unknown, not zero) — 19% of hours on "pregnant in 2025?" |
+| Kalshi | public trade log (cursor-paged) | full | same | rate-limit to 1 req/s; 5/s drew HTTP 429 |
+| Manifold | full bet history (`probAfter`) | full | same (mana) | very thin: 9–35 active hours per flagship market |
+
+Wallet addresses, user IDs and usernames are dropped at fetch time.
+
 ## Data model (DuckDB)
 
 All timestamps are UTC. The shared join key is `hour = date_trunc('hour', ts_utc)`.
