@@ -53,14 +53,14 @@ outage in `logger_gaps`. Keywords come from config until the registry exists.
 
 #### Task 3: Market registry and flagship selection
 **Description:** `rp registry find --entity "Taylor Swift"` searches Polymarket, Kalshi and
-Manifold for open markets closing 6+ months out and prints candidates with volume and close
+Manifold for markets naming the entity, open or resolved, and prints candidates with volume and close
 date. Sam picks the flagship; the chosen markets go into `registry/markets.yaml` with
 resolution text and entity keywords. Pin the exact Ollama model tag here too.
 **Acceptance criteria:**
-- [ ] The finder returns candidates from all three venues (or reports which returned none).
-- [ ] `markets.yaml` holds ≥2 long-horizon Swift markets on ≥2 venues, validated on load
+- [x] The finder returns candidates from all three venues (or reports which returned none).
+- [x] `markets.yaml` holds both Swift flagships (42 markets) on all 3 venues, validated on load
       (success criterion 1).
-- [ ] The Bluesky logger reads its keywords from the registry.
+- [x] The Bluesky logger reads its keywords from the registry.
 **Verification:** `uv run pytest tests/unit/test_registry.py`; `uv run rp registry find --entity "Taylor Swift"`
 **Dependencies:** Task 1
 **Files:** `src/rumour_pressure/registry/`, `registry/markets.yaml`, `tests/unit/test_registry.py`
@@ -113,7 +113,7 @@ on the dashboard.
 **Scope:** M
 
 #### Task 7: Panel feasibility count
-**Description:** Build `registry/candidates.yaml` of 30–50 long-horizon culture markets and
+**Description:** Build `registry/candidates.yaml` of 30–50 culture markets (time-remaining rule applies) and
 run `rp panel-count`, which collects their prices and reports qualifying jumps (raw and
 volume-filtered), per venue and in total.
 **Acceptance criteria:**

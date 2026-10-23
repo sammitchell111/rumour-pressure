@@ -1,0 +1,68 @@
+[
+ {
+  "id": "pLOKaQjBcsNOI7IX2eoX",
+  "createdTime": 1706048245611,
+  "closeTime": 64063198740000,
+  "question": "Will Taylor Swift get married before.....?",
+  "slug": "will-taylor-swift-get-married-befor-ee134db6beb7",
+  "url": "https://manifold.markets/StopPunting/will-taylor-swift-get-married-befor-ee134db6beb7",
+  "totalLiquidity": 5220,
+  "outcomeType": "MULTIPLE_CHOICE",
+  "mechanism": "cpmm-multi-1",
+  "volume": 52397.171773546404,
+  "volume24Hours": 0,
+  "isResolved": false,
+  "lastUpdatedTime": 1786849207446,
+  "lastBetTime": 1786849207446,
+  "lastCommentTime": 1783384073081,
+  "token": "MANA"
+ },
+ {
+  "id": "4ozQquv991brTigeAezh",
+  "createdTime": 1673597806192,
+  "closeTime": 4102466340000,
+  "question": "Will Taylor Swift ever be elected President?",
+  "slug": "will-taylor-swift-ever-be-elected-p",
+  "url": "https://manifold.markets/Gigacasting/will-taylor-swift-ever-be-elected-p",
+  "pool": {
+   "NO": 860.8622021085218,
+   "YES": 2527.3357301745464
+  },
+  "probability": 0.04221206833040561,
+  "p": 0.11456530250422761,
+  "totalLiquidity": 1000,
+  "outcomeType": "BINARY",
+  "mechanism": "cpmm-1",
+  "volume": 6407.646360165652,
+  "volume24Hours": 0,
+  "isResolved": false,
+  "lastUpdatedTime": 1786582114279,
+  "lastBetTime": 1786582114279,
+  "lastCommentTime": 1673598268023,
+  "token": "MANA"
+ },
+ {
+  "id": "6RugqEP5UC",
+  "createdTime": 1756251776926,
+  "closeTime": 1862006340000,
+  "question": "Taylor Swift announces pregnancy before 2029?",
+  "slug": "taylor-swift-announces-pregnancy-be",
+  "url": "https://manifold.markets/EvanDaniel/taylor-swift-announces-pregnancy-be",
+  "pool": {
+   "NO": 159.72604244901538,
+   "YES": 62.60719821685949
+  },
+  "probability": 0.7184082864561564,
+  "p": 0.49999999999999994,
+  "totalLiquidity": 100,
+  "outcomeType": "BINARY",
+  "mechanism": "cpmm-1",
+  "volume": 510.3878588904681,
+  "volume24Hours": 0,
+  "isResolved": false,
+  "lastUpdatedTime": 1784858819298,
+  "lastBetTime": 1784858819298,
+  "lastCommentTime": 1768523297367,
+  "token": "MANA"
+ }
+]

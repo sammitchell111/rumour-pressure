@@ -1,0 +1,308 @@
+{
+ "events": [
+  {
+   "category": "Entertainment",
+   "collateral_return_type": "",
+   "event_ticker": "KXSWIFTWEDDING-26DEC31",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:03:29.272477Z",
+   "markets": [
+    {
+     "can_close_early": true,
+     "close_time": "2026-12-31T04:59:00Z",
+     "created_time": "2026-06-29T20:19:02.104774Z",
+     "custom_strike": {
+      "Designer": "Oscar de la Renta"
+     },
+     "early_close_condition": "This market will close and expire early if the person is documented wearing the specified article of clothing.",
+     "event_ticker": "KXSWIFTWEDDING-26DEC31",
+     "exchange_index": 0,
+     "expected_expiration_time": "2027-01-01T15:00:00Z",
+     "expiration_time": "2027-01-07T15:00:00Z",
+     "expiration_value": "",
+     "last_price_dollars": "0.0900",
+     "latest_expiration_time": "2027-01-07T15:00:00Z",
+     "market_type": "binary",
+     "no_ask_dollars": "1.0000",
+     "no_bid_dollars": "0.9400",
+     "no_sub_title": "Oscar de la Renta",
+     "notional_value_dollars": "1.0000",
+     "occurrence_datetime": "2026-12-31T15:00:00Z",
+     "open_interest_fp": "6261.99",
+     "open_time": "2026-06-29T20:30:00Z",
+     "previous_price_dollars": "0.0900",
+     "previous_yes_ask_dollars": "0.0600",
+     "previous_yes_bid_dollars": "0.0000",
+     "price_level_structure": "linear_cent",
+     "price_ranges": [
+      {
+       "end": "1.0000",
+       "start": "0.0000",
+       "step": "0.0100"
+      }
+     ],
+     "result": "",
+     "rules_primary": "If Taylor Swift is documented wearing a wedding dress designed by Oscar de la Renta during Taylor Swift's first wedding ceremony to Travis Kelce during which they exchange wedding vows, then the market resolves to Yes.",
+     "rules_secondary": "The person must be photographed or video recorded with the article of clothing visibly worn on their body as intended (e.g., a jacket on the torso, not carried or draped). Valid documentation includes official event photography, live television coverage, professional photography from Source Agencies, or video footage from Source Agencies. The person must be clearly identifiable. Carrying, holding, or draping the item without properly wearing it does not qualify. Similar but not identical items do not satisfy the criterion. Documentation where the person cannot be clearly identified does not count toward resolution.",
+     "settlement_bounds_type": "default",
+     "settlement_timer_seconds": 1800,
+     "status": "active",
+     "strike_type": "custom",
+     "ticker": "KXSWIFTWEDDING-26DEC31-OSC",
+     "title": "Will Taylor Swift wear a wedding dress designed by Oscar de la Renta at Taylor Swift's first wedding ceremony to Travis Kelce during which they exchange wedding vows?",
+     "updated_time": "2026-06-29T20:28:03.468706Z",
+     "volume_24h_fp": "0.00",
+     "volume_fp": "16913.63",
+     "yes_ask_dollars": "0.0600",
+     "yes_ask_size_fp": "30.00",
+     "yes_bid_dollars": "0.0000",
+     "yes_bid_size_fp": "0.00",
+     "yes_sub_title": "Oscar de la Renta"
+    },
+    {
+     "can_close_early": true,
+     "close_time": "2026-12-31T04:59:00Z",
+     "created_time": "2026-06-29T20:19:02.104774Z",
+     "custom_strike": {
+      "Designer": "Vivienne Westwood"
+     },
+     "early_close_condition": "This market will close and expire early if the person is documented wearing the specified article of clothing.",
+     "event_ticker": "KXSWIFTWEDDING-26DEC31",
+     "exchange_index": 0,
+     "expected_expiration_time": "2027-01-01T15:00:00Z",
+     "expiration_time": "2027-01-07T15:00:00Z",
+     "expiration_value": "",
+     "last_price_dollars": "0.0800",
+     "latest_expiration_time": "2027-01-07T15:00:00Z",
+     "market_type": "binary",
+     "no_ask_dollars": "0.9800",
+     "no_bid_dollars": "0.9300",
+     "no_sub_title": "Vivienne Westwood",
+     "notional_value_dollars": "1.0000",
+     "occurrence_datetime": "2026-12-31T15:00:00Z",
+     "open_interest_fp": "6045.46",
+     "open_time": "2026-06-29T20:30:00Z",
+     "previous_price_dollars": "0.0800",
+     "previous_yes_ask_dollars": "0.0800",
+     "previous_yes_bid_dollars": "0.0200",
+     "price_level_structure": "linear_cent",
+     "price_ranges": [
+      {
+       "end": "1.0000",
+       "start": "0.0000",
+       "step": "0.0100"
+      }
+     ],
+     "result": "",
+     "rules_primary": "If Taylor Swift is documented wearing a wedding dress designed by Vivienne Westwood during Taylor Swift's first wedding ceremony to Travis Kelce during which they exchange wedding vows, then the market resolves to Yes.",
+     "rules_secondary": "The person must be photographed or video recorded with the article of clothing visibly worn on their body as intended (e.g., a jacket on the torso, not carried or draped). Valid documentation includes official event photography, live television coverage, professional photography from Source Agencies, or video footage from Source Agencies. The person must be clearly identifiable. Carrying, holding, or draping the item without properly wearing it does not qualify. Similar but not identical items do not satisfy the criterion. Documentation where the person cannot be clearly identified does not count toward resolution.",
+     "settlement_bounds_type": "default",
+     "settlement_timer_seconds": 1800,
+     "status": "active",
+     "strike_type": "custom",
+     "ticker": "KXSWIFTWEDDING-26DEC31-VIV",
+     "title": "Will Taylor Swift wear a wedding dress designed by Vivienne Westwood at Taylor Swift's first wedding ceremony to Travis Kelce during which they exchange wedding vows?",
+     "updated_time": "2026-06-29T20:28:03.519047Z",
+     "volume_24h_fp": "0.00",
+     "volume_fp": "16757.67",
+     "yes_ask_dollars": "0.0700",
+     "yes_ask_size_fp": "29.00",
+     "yes_bid_dollars": "0.0200",
+     "yes_bid_size_fp": "556.05",
+     "yes_sub_title": "Vivienne Westwood"
+    }
+   ],
+   "mutually_exclusive": false,
+   "product_metadata": {
+    "important_info": {
+     "id": "KXSWIFTWEDDING-26DEC31-2026-06-29",
+     "markdown": "**Important information:** For the purposes of this market, \"Taylor Swift's first wedding ceremony to Travis Kelce during which they exchange wedding vows\" refers to the first wedding ceremony after Issuance during which Taylor Swift and Travis Kelce exchange wedding vows. If multiple wedding ceremonies occur, only the first ceremony will be considered.",
+     "message": "",
+     "title": ""
+    }
+   },
+   "series_ticker": "KXSWIFTWEDDING",
+   "settlement_sources": [
+    {
+     "name": "Taylor Swift",
+     "url": "https://www.instagram.com/taylorswift/"
+    },
+    {
+     "name": "Vogue",
+     "url": "https://www.vogue.com/"
+    },
+    {
+     "name": "Harper's Bazaar",
+     "url": "https://harpersbazaar.com"
+    },
+    {
+     "name": "Financial Times",
+     "url": "https://www.ft.com"
+    },
+    {
+     "name": "BBC News",
+     "url": "https://www.bbc.com/"
+    },
+    {
+     "name": "Fox News",
+     "url": "https://www.foxnews.com/"
+    },
+    {
+     "name": "The Wall Street Journal",
+     "url": "https://www.wsj.com/"
+    },
+    {
+     "name": "E! News",
+     "url": "https://www.eonline.com/"
+    },
+    {
+     "name": "TMZ",
+     "url": "https://www.tmz.com"
+    },
+    {
+     "name": "Entertainment Tonight",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "People",
+     "url": "https://people.com/"
+    },
+    {
+     "name": "POLITICO",
+     "url": "https://www.politico.com"
+    },
+    {
+     "name": "The Guardian",
+     "url": "https://www.theguardian.com/"
+    },
+    {
+     "name": "The Washington Post",
+     "url": "https://www.washingtonpost.com/"
+    },
+    {
+     "name": "Variety",
+     "url": "https://variety.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com/"
+    },
+    {
+     "name": "Axios",
+     "url": "https://www.axios.com/"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com/"
+    },
+    {
+     "name": "CBS News",
+     "url": "https://www.cbsnews.com/"
+    },
+    {
+     "name": "ESPN",
+     "url": "https://www.espn.com"
+    },
+    {
+     "name": "NBC News",
+     "url": "https://www.nbcnews.com/"
+    },
+    {
+     "name": "CNN",
+     "url": "https://www.cnn.com"
+    },
+    {
+     "name": "the Associated Press",
+     "url": "https://apnews.com/"
+    },
+    {
+     "name": "ABC News",
+     "url": "https://abcnews.go.com/"
+    },
+    {
+     "name": "Getty Images",
+     "url": "https://www.gettyimages.com/search/2/image?family=editorial&sort=newest&specificpeople=118600"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com/news"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Taylor Swift's first wedding ceremony to Travis Kelce during which they exchange wedding vows",
+   "title": "Taylor Swift: Wedding Dress"
+  },
+  {
+   "category": "Entertainment",
+   "collateral_return_type": "",
+   "event_ticker": "KXPERFORMBONDSONG-35",
+   "exchange_index": 0,
+   "last_updated_ts": "2026-10-16T03:08:02.994023Z",
+   "markets": [],
+   "mutually_exclusive": false,
+   "series_ticker": "KXPERFORMBONDSONG",
+   "settlement_sources": [
+    {
+     "name": "performer",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "official production company or studio releasing song",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "official credits of the release",
+     "url": "https://kalshi.com/"
+    },
+    {
+     "name": "the Recording Industry Association of America",
+     "url": "https://www.riaa.com"
+    },
+    {
+     "name": "Billboard",
+     "url": "https://www.billboard.com"
+    },
+    {
+     "name": "Rolling Stone",
+     "url": "https://www.rollingstone.com"
+    },
+    {
+     "name": "Variety",
+     "url": "https://variety.com"
+    },
+    {
+     "name": "The Hollywood Reporter",
+     "url": "https://www.hollywoodreporter.com"
+    },
+    {
+     "name": "Deadline",
+     "url": "https://deadline.com"
+    },
+    {
+     "name": "The New York Times",
+     "url": "https://www.nytimes.com/"
+    },
+    {
+     "name": "the Associated Press",
+     "url": "https://www.ap.org"
+    },
+    {
+     "name": "Bloomberg News",
+     "url": "https://www.bloomberg.com"
+    },
+    {
+     "name": "Reuters",
+     "url": "https://www.reuters.com"
+    },
+    {
+     "name": "official websites or social media accounts of the production",
+     "url": "https://kalshi.com/"
+    }
+   ],
+   "strike_period": "",
+   "sub_title": "Before 2035",
+   "title": "Next James Bond film: Artist performing the James Bond Theme"
+  }
+ ],
+ "cursor": ""
+}

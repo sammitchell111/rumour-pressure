@@ -2,6 +2,7 @@
 
 import contextlib
 import logging
+from datetime import UTC, datetime
 from typing import Annotated
 
 import typer
@@ -38,9 +39,74 @@ def init_db() -> None:
 
 
 @registry_app.command("find")
-def registry_find(entity: Annotated[str, typer.Option("--entity")]) -> None:
-    """Search venues for long-horizon markets about an entity."""
-    _not_yet("Task 3")
+def registry_find(
+    entity: Annotated[list[str], typer.Option("--entity", "-e", help="Name or alias; repeatable.")],
+    venue: Annotated[
+        list[str] | None, typer.Option("--venue", help="Limit to venue(s); repeatable.")
+    ] = None,
+    topic: Annotated[
+        str | None, typer.Option("--topic", help="Regex the question must also match.")
+    ] = None,
+    min_volume: Annotated[float, typer.Option(help="Hide markets below this volume.")] = 0.0,
+    open_only: Annotated[bool, typer.Option("--open-only")] = False,
+) -> None:
+    """List markets on each venue whose question names the entity (open and resolved)."""
+    import re
+
+    from rumour_pressure.registry import venues as v
+
+    cands = v.find(entity, venues=venue or list(v.SEARCH))
+    cands = [
+        c
+        for c in cands
+        if (c.volume or 0) >= min_volume
+        and not (open_only and c.closed)
+        and (not topic or re.search(topic, c.question, re.IGNORECASE))
+    ]
+    cands.sort(key=lambda c: (c.venue, c.close_time or datetime.max.replace(tzinfo=UTC)))
+    for c in cands:
+        close = f"{c.close_time:%Y-%m-%d}" if c.close_time else "    -     "
+        state = "closed" if c.closed else "open  "
+        typer.echo(
+            f"{c.venue:<10} {close} {state} vol={c.volume or 0:>10,.0f} {c.kind[:6]:<6} "
+            f"{c.ref:<28} {c.question[:80]}"
+        )
+    typer.echo(f"\n{len(cands)} candidates. Add one with: rp registry add <venue> <ref> --group G")
+
+
+@registry_app.command("add")
+def registry_add(
+    venue: Annotated[str, typer.Argument(help="polymarket | kalshi | manifold")],
+    refs: Annotated[list[str], typer.Argument(help="Venue market id(s) or ticker(s).")],
+    group: Annotated[str, typer.Option("--group", "-g", help="e.g. pregnancy, wedding")],
+    entity_key: Annotated[
+        list[str] | None, typer.Option("--entity-key", "-k", help="Repeatable.")
+    ] = None,
+) -> None:
+    """Fetch full market details (incl. resolution text) and record them in the registry."""
+    from rumour_pressure.registry import load_registry, save_registry
+    from rumour_pressure.registry import venues as v
+
+    reg = load_registry()
+    keys = entity_key or ["Taylor Swift", "Travis Kelce"]
+    for ref in refs:
+        market = v.FETCH[venue](ref, group).model_copy(update={"entity_keys": keys})
+        if not market.resolution_text:
+            typer.echo(f"warning: {market.market_id} has no resolution text", err=True)
+        reg = reg.upsert(market)
+        typer.echo(f"added {market.market_id}: {market.question[:70]}")
+    save_registry(reg)
+
+
+@registry_app.command("sync")
+def registry_sync() -> None:
+    """Write the registry's markets into the warehouse `markets` table."""
+    from rumour_pressure.registry import load_registry
+
+    reg = load_registry()
+    with Warehouse(config.warehouse_path()) as wh:
+        n = wh.upsert(m.to_row() for m in reg.markets)
+    typer.echo(f"Synced {n} markets to the warehouse.")
 
 
 @app.command()
@@ -74,8 +140,9 @@ def bluesky_log(
     import asyncio
 
     from rumour_pressure.collect.bluesky import BlueskyLogger, Matcher
+    from rumour_pressure.registry import load_registry
 
-    keywords = keyword or list(config.DEFAULT_LIVE_KEYWORDS)
+    keywords = keyword or load_registry().live_keywords() or list(config.DEFAULT_LIVE_KEYWORDS)
     stage = config.live_stage_dir("bluesky")
     logger = BlueskyLogger(Matcher(keywords), config.author_salt(), stage)
     typer.echo(f"Logging Bluesky posts matching {keywords} to {stage}. Ctrl-C to stop.")

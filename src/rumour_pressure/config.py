@@ -54,7 +54,7 @@ class RateLimits:
     wikipedia: float = 0.1
     manifold: float = 0.1
     polymarket: float = 0.2
-    kalshi: float = 0.2
+    kalshi: float = 1.0  # 5 req/s drew HTTP 429s in testing
 
 
 @dataclass(frozen=True)

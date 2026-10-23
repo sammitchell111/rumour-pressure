@@ -1,0 +1,30 @@
+{
+ "id": "6RugqEP5UC",
+ "createdTime": 1756251776926,
+ "closeTime": 1862006340000,
+ "question": "Taylor Swift announces pregnancy before 2029?",
+ "slug": "taylor-swift-announces-pregnancy-be",
+ "url": "https://manifold.markets/EvanDaniel/taylor-swift-announces-pregnancy-be",
+ "pool": {
+  "NO": 159.72604244901538,
+  "YES": 62.60719821685949
+ },
+ "probability": 0.7184082864561564,
+ "p": 0.49999999999999994,
+ "totalLiquidity": 100,
+ "outcomeType": "BINARY",
+ "mechanism": "cpmm-1",
+ "volume": 510.3878588904681,
+ "volume24Hours": 0,
+ "isResolved": false,
+ "lastUpdatedTime": 1784858819298,
+ "lastBetTime": 1784858819298,
+ "lastCommentTime": 1768523297367,
+ "token": "MANA",
+ "groupSlugs": [
+  "travis-kelce",
+  "taylor-swift",
+  "entertainment"
+ ],
+ "textDescription": "Having a child counts, as does announcing a miscarriage. Leaks and rumors don't count, but it's still an announcement even if it's not a surprise.\n\nUpdate 2026-01-15 (PST) (AI summary of creator comment): Announcing a pregnancy via surrogacy does NOT count for resolution."
+}

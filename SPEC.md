@@ -1,19 +1,37 @@
 # Spec: Rumour Pressure vs. Market Price — MVP
 
-Status: draft for review · Owner: Sam Mitchell · Last updated: 2026-10-23
+Status: approved · Owner: Sam Mitchell · Last updated: 2026-10-23
 One-pager: https://claude.ai/artifact/M7J9auN9D9qYZb3isqbJNR
 
 ## Objective
 
 Measure whether online rumour about celebrity life events leads, lags or merely mirrors
-prediction-market prices on long-horizon culture questions (closing 6–24+ months out).
-Research answer first; trading is out of scope unless a solid lead relationship is found.
+prediction-market prices on culture questions. Research answer first; trading is out of
+scope unless a solid lead relationship is found.
 
-The MVP is a **Taylor Swift flagship**: collect prices, attention and text for 2–4
-long-horizon Swift markets, score every relevant post for stance against each market's
-own resolution text, detect price jumps, and show it all in a **local dashboard** on one
-hourly timeline. In parallel, count jumps across 30–50 candidate markets to decide whether
-the full panel is viable.
+**Time-remaining rule (replaces "long-horizon markets only", 2026-10-23).** A venue search
+found almost no long-horizon real-money celebrity life-event markets: Polymarket and Kalshi
+run these as rolling short-deadline chains (e.g. "pregnant in 2024?", "in 2025?", "by
+March 31?"), and long-horizon versions exist mainly on Manifold, thinly traded. So we keep
+the rule's purpose — stop deadline decay from swamping the signal — rather than its form:
+include short-deadline and resolved markets, but only analyse price moves made while
+**≥ 60 days remain** before the deadline, after detrending. Chains of the same question
+with different deadlines also show the decay curve directly, which grounds the detrend.
+
+The MVP has **two Taylor Swift flagships** in `registry/markets.yaml`:
+
+- **Pregnancy** — Polymarket's chain from 2024 to "before 2027" (7 markets, ~$2.7M traded
+  in total) plus 6 Manifold long-horizon pregnancy/child markets.
+- **Wedding** — Polymarket's engagement, marriage-date, venue and guest markets (22), Kalshi's
+  wedding-dress markets (3) and one Manifold marriage market.
+- Plus a small **relationship** group (divorce / still-together; 3 markets).
+
+For each, collect prices, attention and text, score every relevant post for stance against
+each market's own resolution text, detect price jumps, and show it in a **local dashboard**
+on one hourly timeline. In parallel, count jumps across 30–50 candidate markets to decide
+whether the full panel is viable.
+
+Binary markets only in the MVP; Manifold multiple-choice and date markets are deferred.
 
 User: Sam (sole researcher). Success = the success criteria at the end of this spec.
 
@@ -202,7 +220,7 @@ def parse_manifold_bets(market_id: str, bets: list[dict]) -> list[PriceRow]:
 
 ## Success criteria
 
-1. `registry/markets.yaml` holds ≥2 long-horizon Swift markets on ≥2 venues, each with
+1. `registry/markets.yaml` holds both Swift flagships on ≥2 venues, each market with
    resolution text and entity keywords.
 2. Every collector backfills its source for the flagship markets (from market creation or
    the source's history limit); a second run writes zero duplicate rows.
@@ -223,7 +241,8 @@ def parse_manifold_bets(market_id: str, bets: list[dict]) -> list[PriceRow]:
 - [ ] **Cloud server for the Bluesky logger** — runs on the laptop for now; move to a small
       server before relying on it for continuous data. (Tracked so it isn't forgotten.)
 - [ ] Which exact markets form the flagship (decided in Task 1)?
-- [ ] Panel selection rule: venues, minimum volume, minimum horizon, topic.
+- [ ] Panel selection rule: venues, minimum volume, topic (time-remaining rule applies).
+- [ ] Is 60 days the right time-remaining cut-off? Check against the resolved chains.
 - [ ] Polymarket and Kalshi price-history depth and granularity for long-dated markets.
 - [ ] Are daily Wikipedia views enough, or do we need the hourly dumps?
 - [ ] Single labeller (Sam) or a second labeller to measure agreement?
